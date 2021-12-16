@@ -4,16 +4,16 @@ const path = require('path')
 const students=[];
 const app = express();
 
-app.use(rollbar.errorHandler())
 
 // include and initialize the rollbar library with your access token
 const Rollbar = require('rollbar')
 const rollbar = new Rollbar({
-  accessToken: 'a76e304940794347887cdcb1140d3780',
-  captureUncaught: true,
-  captureUnhandledRejections: true,
+    accessToken: 'a76e304940794347887cdcb1140d3780',
+    captureUncaught: true,
+    captureUnhandledRejections: true,
 })
 
+app.use(rollbar.errorHandler())
 
 app.get('/', (req, res)=>{
     res.sendFile(path.join(__dirname, '/public/index.html'))
