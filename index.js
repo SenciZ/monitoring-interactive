@@ -3,7 +3,7 @@ const path = require('path')
 
 const students=[];
 const app = express();
-// app.use(express.json())
+app.use(express.json())
 
 // include and initialize the rollbar library with your access token
 const Rollbar = require('rollbar')
