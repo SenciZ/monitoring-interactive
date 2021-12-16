@@ -3,7 +3,7 @@ const path = require('path')
 
 const students=[];
 const app = express();
-
+app.use(express.json())
 
 // include and initialize the rollbar library with your access token
 const Rollbar = require('rollbar')
@@ -13,7 +13,6 @@ const rollbar = new Rollbar({
     captureUnhandledRejections: true,
 })
 
-app.use(rollbar.errorHandler())
 
 app.get('/', (req, res)=>{
     res.sendFile(path.join(__dirname, '/public/index.html'))
@@ -23,14 +22,15 @@ app.get('/', (req, res)=>{
 app.post('/api/student', (req,res)=>{
     let {name} = req.body;
     name = name.trim();
-
+    
     students.push(name)
     rollbar.log('Student added successfully.', {author: 'Senad', type: 'Manual Entry'})
     res.status(200).send(students);
-
-
+    
+    
 })
 
+app.use(rollbar.errorHandler())
 
 const port = process.env.PORT || 4545
 
